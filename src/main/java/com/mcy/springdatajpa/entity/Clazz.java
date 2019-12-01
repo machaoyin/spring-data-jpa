@@ -11,18 +11,18 @@ import java.util.List;
 //设置表名为tb_clazz
 @Table(name="tb_clazz")
 public class Clazz {
+    private Integer id; //主键
+    private String name;    //班级名称
+    //@JsonIgnore注解是类注解，作用是json序列化时将java bean中的一些属性忽略掉
+    @JsonIgnore
+    private List<Stu> stuList = new ArrayList<>();
+
     /**
      * 使用@id指定主键。使用代码@GeneratedValue(strategy = GenerationType.IDENTITY)
      * 指定主键的生存策略，mysql默认为自动增长
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; //主键
-    private String name;    //班级名称
-    //@JsonIgnore注解是类注解，作用是json序列化时将java bean中的一些属性忽略掉
-    @JsonIgnore
-    private List<Stu> stus = new ArrayList<>();
-
+    @GeneratedValue
     public Integer getId() {
         return id;
     }
@@ -39,14 +39,14 @@ public class Clazz {
         this.name = name;
     }
 
-    //班级与学生是一对多的关联，mappedBy对应stus字段
+    //班级与学生是一对多的关联，mappedBy对应Stu表中clazz字段
     @OneToMany(cascade=CascadeType.ALL,mappedBy="clazz")
-    public List<Stu> getStus() {
-        return stus;
+    public List<Stu> getStuList() {
+        return stuList;
     }
 
-    public void setStus(List<Stu> stus) {
-        this.stus = stus;
+    public void setStuList(List<Stu> stuList) {
+        this.stuList = stuList;
     }
 
     public Clazz(String name) {

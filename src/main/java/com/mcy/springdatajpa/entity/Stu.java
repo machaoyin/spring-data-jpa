@@ -3,19 +3,18 @@ package com.mcy.springdatajpa.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToOne;
 
 //用于标记持久化类，SpringBoot项目加载后会自动根据持久化类建表
 @Entity
 //设置表名为tb_stu
 @Table(name="tb_stu")
 public class Stu {
-    /**
-     * 使用@id指定主键。使用代码@GeneratedValue(strategy = GenerationType.IDENTITY)
-     * 指定主键的生存策略，mysql默认为自动增长
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; //主键
     private String name;    //姓名
     private String address;     //地址
@@ -25,6 +24,12 @@ public class Stu {
     @JsonIgnore
     private Clazz clazz;
 
+    /**
+     * 使用@id指定主键。使用代码@GeneratedValue
+     * 指定主键的生存策略，mysql默认为自动增长
+     */
+    @Id
+    @GeneratedValue
     public Integer getId() {
         return id;
     }

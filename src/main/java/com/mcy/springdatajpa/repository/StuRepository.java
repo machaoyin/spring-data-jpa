@@ -52,15 +52,15 @@ public interface StuRepository extends JpaRepository<Stu, Integer> {
      * @param sex
      * @return
      */
-    @Query("select s.name from Stu s where s.clazz.name = :clazzName and s.sex = :sex")
-    List<String> findNameByClazzNameAndSex(@Param("clazzNam")String clazzName, @Param("sex")char sex);
+    @Query("select s.name from Stu s where s.clazz.name=:clazzName and s.sex=:sex")
+    List<String> findNameByClazzNameAndSex(@Param("clazzName")String clazzName, @Param("sex")char sex);
 
     /**
      * 使用@Query注解的形式，查询某个学生属于哪个班级
      * @param stuName
      * @return
      */
-    @Query("select c.name from Clazz c inner join c.stus s where s.name = ?1")
+    @Query("select c.name from Clazz c inner join c.stuList s where s.name = ?1")
     String findClazzNameByStuName(String stuName);
 
     /**
